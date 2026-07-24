@@ -17,12 +17,26 @@ Les fichiers suivants définissent les règles strictes de conception (à destin
 
 ---
 
-## 2. Code Source (Moteur MonoGame)
+## 2. Architecture du Projet (Arborescence)
 
-Le code est structuré de manière modulaire, sans aucun asset externe hormis une police d'écriture `.ttf` (zéro image, zéro fichier audio).
+Le code respecte une organisation strictement modulaire. Aucun asset externe n'est utilisé en dehors d'un unique fichier de police d'écriture `.ttf`.
 
-- **[`Program.cs`](./Program.cs)** : Le point d'entrée classique de l'application C# MonoGame.
-- **[`Game1.cs`](./Game1.cs)** : La boucle de jeu principale. Il gère l'initialisation de la fenêtre (720p, centrée), le rendu du quadrillage cathodique (CRT) et coordonne l'animation d'introduction façon Minitel (frappe de texte asynchrone avec sons procéduraux et curseurs blocs clignotants).
-- **[`Renderer.cs`](./Renderer.cs)** : Un mini-moteur de rendu vectoriel fait maison. Il trace des lignes et des géométries à l'écran grâce à un simple pixel blanc généré en mémoire, respectant la règle du "zéro texture externe".
-- **`fonts/` et `Content/`** : Contient la police `JetBrainsMono` utilisée pour afficher les textes de l'UI (le seul "asset externe" toléré).
-- **[`AudioEngine.cs`](./AudioEngine.cs)** : Un synthétiseur audio procédural. Il génère des ondes sonores (ex: des "bips" sinusoïdaux) directement dans des tampons mémoire, éliminant le besoin de charger des fichiers `.wav` ou `.mp3`.
+```text
+ENIAC WAR/
+├── Core/
+│   ├── Program.cs         : Point d'entrée natif de l'application MonoGame.
+│   └── Game1.cs           : Classe racine. Initialise la fenêtre 720p, dessine la grille CRT de fond, et délègue la boucle de jeu au ScreenManager.
+│
+├── Engine/
+│   ├── AudioEngine.cs     : Moteur audio procédural. Génère des bips sinusoïdaux en mémoire sans aucun fichier audio (.wav, .mp3).
+│   └── Renderer.cs        : Moteur de rendu vectoriel. Trace des primitives (lignes, remplissage) et du texte via un pixel blanc généré en RAM.
+│
+├── Screens/
+│   ├── IScreen.cs         : Interface de contrat universel pour le cycle de vie de toutes les pages (Initialize, Update, Draw).
+│   ├── ScreenManager.cs   : Orchestrateur de pages. Gère la page active et exécute les transitions asynchrones en fondu enchaîné.
+│   ├── IntroScreen.cs     : Page de démarrage. Séquence d'animation typographique asynchrone façon "Hack Minitel".
+│   └── MenuScreen.cs      : Page du menu principal. Navigation au clavier avec curseur bloc (NOUVELLE CAMPAGNE, OPTIONS, FERMER).
+│
+└── Content/ & fonts/
+    └── JetBrainsMono      : L'unique fichier de police utilisé pour le rendu typographique (la seule exception tolérée à la règle "Zéro Asset").
+```

@@ -1,0 +1,100 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
+namespace EniacWar;
+
+public class MenuScreen : IScreen
+{
+    private string _title = "ENIAC WAR";
+    private string[] _options = { "ENIAC", "OPTIONS", "CREDITS", "FERMER" };
+    private int _selectedIndex = 0;
+    
+    private Color _textColor = new Color(50, 255, 50); 
+
+    private double _cursorTimer = 0;
+    private bool _cursorVisible = true;
+    
+    private bool _keyDown = false;
+
+    public void Initialize()
+    {
+    }
+
+    public void Update(GameTime gameTime, ScreenManager screenManager)
+    {
+        KeyboardState kState = Keyboard.GetState();
+
+        if (kState.IsKeyDown(Keys.Up) && !_keyDown)
+        {
+            _selectedIndex--;
+            if (_selectedIndex < 0) _selectedIndex = _options.Length - 1;
+            _keyDown = true;
+            screenManager.Audio.PlayTypingSound();
+        }
+        else if (kState.IsKeyDown(Keys.Down) && !_keyDown)
+        {
+            _selectedIndex++;
+            if (_selectedIndex >= _options.Length) _selectedIndex = 0;
+            _keyDown = true;
+            screenManager.Audio.PlayTypingSound();
+        }
+        else if (kState.IsKeyDown(Keys.Enter) && !_keyDown)
+        {
+            _keyDown = true;
+            screenManager.Audio.PlayTypingSound();
+            
+            if (_selectedIndex == 3)
+            {
+                screenManager.ExitCommand?.Invoke();
+            }
+        }
+        else if (kState.GetPressedKeys().Length == 0)
+        {
+            _keyDown = false;
+        }
+
+        _cursorTimer += gameTime.ElapsedGameTime.TotalSeconds;
+        if (_cursorTimer > 0.5)
+        {
+            _cursorVisible = !_cursorVisible;
+            _cursorTimer = 0;
+        }
+    }
+
+    public void Draw(GameTime gameTime, Renderer renderer, SpriteFont font, GraphicsDeviceManager graphics)
+    {
+        renderer.Begin();
+
+        Vector2 titleSize = font.MeasureString(_title);
+        Vector2 titlePos = new Vector2(
+            (graphics.PreferredBackBufferWidth - titleSize.X) / 2,
+            150
+        );
+
+        renderer.DrawString(font, _title, titlePos, _textColor);
+
+        float scaleOption = 0.5f;
+        float startY = 350;
+
+        for (int i = 0; i < _options.Length; i++)
+        {
+            Vector2 optionSize = font.MeasureString(_options[i]) * scaleOption;
+            Vector2 optionPos = new Vector2(
+                (graphics.PreferredBackBufferWidth - optionSize.X) / 2,
+                startY + i * 60
+            );
+
+            renderer.DrawString(font, _options[i], optionPos, _textColor, scaleOption);
+
+            if (i == _selectedIndex && _cursorVisible)
+            {
+                Vector2 charSize = font.MeasureString("A") * scaleOption;
+                Vector2 cursorPosition = new Vector2(optionPos.X - charSize.X - 20, optionPos.Y + charSize.Y * 0.15f);
+                renderer.FillRectangle(new Rectangle((int)cursorPosition.X, (int)cursorPosition.Y, (int)charSize.X, (int)(charSize.Y * 0.7f)), _textColor);
+            }
+        }
+
+        renderer.End();
+    }
+}
