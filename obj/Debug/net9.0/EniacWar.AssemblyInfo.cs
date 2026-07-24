@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EniacWar")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4b5d35143ef826380bbc5ef431f8a6a3958f9724")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af226db851034f663f0e2fb9e600607e530ed3af")]
 [assembly: System.Reflection.AssemblyProductAttribute("EniacWar")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EniacWar")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,6 +1,6 @@
 Programmeur Audio Expert en C# et Synthèse Sonore.
 
-Objectif : Écrire le code C# complet d'un moteur audio procédural pour le jeu RTS NATIONS.SYS utilisant une esthétique rétro vectorielle (fond noir, lignes lumineuses, ambiance terminal militaire).
+Objectif : Écrire le code C# complet d'un moteur audio procédural pour le jeu RTS ENIAC WAR utilisant une esthétique rétro vectorielle (fond noir, lignes lumineuses, ambiance terminal militaire).
 
 Consignes Techniques et Artistiques :
 

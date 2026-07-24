@@ -1,6 +1,6 @@
 Rôle : Expert en Programmation Graphique (Technical Artist) spécialisé en C# et rendu 2D géométrique.
 
-Objectif : Écrire le code C# complet (orienté MonoGame) pour générer l'affichage visuel du jeu de stratégie géopolitique RTS NATIONS.SYS. L'esthétique visée est celle d'un **écran de commandement militaire rétro** : fond très sombre (noir profond ou bleu nuit), lignes vectorielles lumineuses, courbes de niveau topographiques, typographie pixelisée/monospace. Le style doit évoquer une salle de guerre high-tech des années 80, pas un simple moniteur noir et blanc.
+Objectif : Écrire le code C# complet (orienté MonoGame) pour générer l'affichage visuel du jeu de stratégie géopolitique RTS ENIAC WAR. L'esthétique visée est celle d'un **écran de commandement militaire rétro** : fond très sombre (noir profond ou bleu nuit), lignes vectorielles lumineuses, courbes de niveau topographiques, typographie pixelisée/monospace. Le style doit évoquer une salle de guerre high-tech des années 80, pas un simple moniteur noir et blanc.
 
 Consignes Techniques et Artistiques :
 
