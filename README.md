@@ -24,8 +24,10 @@ Le code respecte une organisation strictement modulaire. Aucun asset externe n'e
 ```text
 ENIAC WAR/
 ├── Core/
-│   ├── Program.cs         : Point d'entrée natif de l'application MonoGame.
-│   └── Game1.cs           : Classe racine. Initialise la fenêtre 720p, dessine la grille CRT de fond, et délègue la boucle de jeu au ScreenManager.
+│   ├── Program.cs             : Point d'entrée natif. Intercepte les erreurs critiques pour générer un fichier `crash.log`.
+│   ├── Game1.cs               : Classe racine. Initialise la fenêtre, dessine la grille CRT de fond, et délègue la boucle de jeu au ScreenManager.
+│   ├── LocalizationManager.cs : Système de traduction modulaire 0 allocation, fusionnant dynamiquement tous les fichiers JSON du dossier Translations au démarrage.
+│   └── SettingsManager.cs     : Gestionnaire de paramètres sauvegardés localement (Langue, Résolution, Plein écran).
 │
 ├── Engine/
 │   ├── AudioEngine.cs     : Moteur audio procédural. Génère des bips sinusoïdaux en mémoire sans aucun fichier audio (.wav, .mp3).
@@ -33,10 +35,17 @@ ENIAC WAR/
 │
 ├── Screens/
 │   ├── IScreen.cs         : Interface de contrat universel pour le cycle de vie de toutes les pages (Initialize, Update, Draw).
-│   ├── ScreenManager.cs   : Orchestrateur de pages. Gère la page active et exécute les transitions asynchrones en fondu enchaîné.
-│   ├── IntroScreen.cs     : Page de démarrage. Séquence d'animation typographique asynchrone façon "Hack Minitel".
-│   └── MenuScreen.cs      : Page du menu principal. Navigation au clavier avec curseur bloc (NOUVELLE CAMPAGNE, OPTIONS, FERMER).
+│   ├── ScreenManager.cs       : Orchestrateur de pages. Gère la page active et exécute les transitions asynchrones en fondu enchaîné.
+│   ├── IntroScreen.cs         : Page de démarrage. Séquence d'animation typographique asynchrone façon "Hack Minitel".
+│   ├── MenuScreen.cs          : Page du menu principal. Navigation au clavier avec curseur bloc (NOUVELLE CAMPAGNE, OPTIONS, FERMER).
+│   └── OptionsScreen.cs       : Page des réglages (Langue, Résolution, Plein écran) avec modale de confirmation sécurisée (rollback 10s).
 │
-└── Content/ & fonts/
-    └── JetBrainsMono      : L'unique fichier de police utilisé pour le rendu typographique (la seule exception tolérée à la règle "Zéro Asset").
+└── Content/
+    ├── fonts/
+    │   └── JetBrainsMono.ttf  : L'unique fichier de police utilisé pour le rendu typographique (la seule exception tolérée à la règle "Zéro Asset").
+    └── Translations/          : Dossier des dictionnaires de localisation (EN, FR, ES, DE, IT, PT-BR, TR).
+        ├── Global.json        : Textes partagés globalement (ex: Titre du jeu).
+        ├── IntroScreen.json   : Textes dédiés à l'écran d'introduction.
+        ├── MenuScreen.json    : Textes dédiés au menu principal.
+        └── OptionsScreen.json : Textes dédiés à l'écran des paramètres et sa modale de confirmation.
 ```

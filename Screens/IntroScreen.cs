@@ -7,7 +7,7 @@ namespace EniacWar;
 
 public class IntroScreen : IScreen
 {
-    private string _fullTitle = "ENIAC WAR";
+    private string _fullTitle = "";
     private int _visibleLetters = 0;
     private double _timeSinceLastLetter = 0;
     private double _typingDelay = 0.5;
@@ -21,6 +21,7 @@ public class IntroScreen : IScreen
 
     public void Initialize()
     {
+        _fullTitle = LocalizationManager.GetString("TITLE");
         _visibleLetters = 0;
         _timeSinceLastLetter = 0;
         _typingDelay = 0.5;
@@ -95,7 +96,7 @@ public class IntroScreen : IScreen
 
         if (_titleFinished)
         {
-            string prompt = "Appuyer sur une touche";
+            string prompt = LocalizationManager.GetString("PRESS_ANY_KEY");
             float scalePrompt = 0.5f;
             Vector2 promptSize = font.MeasureString(prompt) * scalePrompt;
             Vector2 promptPos = new Vector2(

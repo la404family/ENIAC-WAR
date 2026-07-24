@@ -1,0 +1,44 @@
+{
+  "EN": {
+    "MENU_ENIAC": "ENIAC",
+    "MENU_OPTIONS": "OPTIONS",
+    "MENU_CREDITS": "CREDITS",
+    "MENU_EXIT": "EXIT"
+  },
+  "FR": {
+    "MENU_ENIAC": "ENIAC",
+    "MENU_OPTIONS": "OPTIONS",
+    "MENU_CREDITS": "CREDITS",
+    "MENU_EXIT": "FERMER"
+  },
+  "ES": {
+    "MENU_ENIAC": "ENIAC",
+    "MENU_OPTIONS": "OPCIONES",
+    "MENU_CREDITS": "CREDITOS",
+    "MENU_EXIT": "SALIR"
+  },
+  "DE": {
+    "MENU_ENIAC": "ENIAC",
+    "MENU_OPTIONS": "OPTIONEN",
+    "MENU_CREDITS": "CREDITS",
+    "MENU_EXIT": "BEENDEN"
+  },
+  "IT": {
+    "MENU_ENIAC": "ENIAC",
+    "MENU_OPTIONS": "OPZIONI",
+    "MENU_CREDITS": "CREDITI",
+    "MENU_EXIT": "ESCI"
+  },
+  "PT-BR": {
+    "MENU_ENIAC": "ENIAC",
+    "MENU_OPTIONS": "OPCOES",
+    "MENU_CREDITS": "CREDITOS",
+    "MENU_EXIT": "SAIR"
+  },
+  "TR": {
+    "MENU_ENIAC": "ENIAC",
+    "MENU_OPTIONS": "AYARLAR",
+    "MENU_CREDITS": "KREDILER",
+    "MENU_EXIT": "CIKIS"
+  }
+}

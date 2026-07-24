@@ -36,3 +36,7 @@ D:\Documents perso\0000Site internet\DEV\ENIAC WAR\obj\Debug\net9.0\EniacWar.pdb
 D:\Documents perso\0000Site internet\DEV\ENIAC WAR\obj\Debug\net9.0\EniacWar.genruntimeconfig.cache
 D:\Documents perso\0000Site internet\DEV\ENIAC WAR\obj\Debug\net9.0\ref\EniacWar.dll
 D:\Documents perso\0000Site internet\DEV\ENIAC WAR\obj\Debug\net9.0\EniacWar.sourcelink.json
+D:\Documents perso\0000Site internet\DEV\ENIAC WAR\bin\Debug\net9.0\Content\Translations\Global.json
+D:\Documents perso\0000Site internet\DEV\ENIAC WAR\bin\Debug\net9.0\Content\Translations\IntroScreen.json
+D:\Documents perso\0000Site internet\DEV\ENIAC WAR\bin\Debug\net9.0\Content\Translations\MenuScreen.json
+D:\Documents perso\0000Site internet\DEV\ENIAC WAR\bin\Debug\net9.0\Content\Translations\OptionsScreen.json

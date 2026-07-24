@@ -1,0 +1,72 @@
+{
+  "EN": {
+    "OPT_RESOLUTION": "RESOLUTION : ",
+    "OPT_FULLSCREEN": "FULLSCREEN : ",
+    "OPT_LANGUAGE": "LANGUAGE : ",
+    "OPT_BACK": "BACK",
+    "YES": "YES",
+    "NO": "NO",
+    "MODAL_CONFIRM": "Keep these display settings?",
+    "MODAL_REVERTING": "Reverting in {0}s..."
+  },
+  "FR": {
+    "OPT_RESOLUTION": "RESOLUTION : ",
+    "OPT_FULLSCREEN": "PLEIN ECRAN : ",
+    "OPT_LANGUAGE": "LANGUE : ",
+    "OPT_BACK": "RETOUR",
+    "YES": "OUI",
+    "NO": "NON",
+    "MODAL_CONFIRM": "Conserver ces parametres d'affichage ?",
+    "MODAL_REVERTING": "Annulation dans {0}s..."
+  },
+  "ES": {
+    "OPT_RESOLUTION": "RESOLUCION : ",
+    "OPT_FULLSCREEN": "PANTALLA COMPLETA : ",
+    "OPT_LANGUAGE": "IDIOMA : ",
+    "OPT_BACK": "VOLVER",
+    "YES": "SI",
+    "NO": "NO",
+    "MODAL_CONFIRM": "Mantener estos ajustes de pantalla?",
+    "MODAL_REVERTING": "Revirtiendo en {0}s..."
+  },
+  "DE": {
+    "OPT_RESOLUTION": "AUFLOESUNG : ",
+    "OPT_FULLSCREEN": "VOLLBILD : ",
+    "OPT_LANGUAGE": "SPRACHE : ",
+    "OPT_BACK": "ZURUECK",
+    "YES": "JA",
+    "NO": "NEIN",
+    "MODAL_CONFIRM": "Diese Anzeigeeinstellungen beibehalten?",
+    "MODAL_REVERTING": "Wird in {0}s zurueckgesetzt..."
+  },
+  "IT": {
+    "OPT_RESOLUTION": "RISOLUZIONE : ",
+    "OPT_FULLSCREEN": "SCHERMO INTERO : ",
+    "OPT_LANGUAGE": "LINGUA : ",
+    "OPT_BACK": "INDIETRO",
+    "YES": "SI",
+    "NO": "NO",
+    "MODAL_CONFIRM": "Mantenere queste impostazioni di visualizzazione?",
+    "MODAL_REVERTING": "Ripristino in {0}s..."
+  },
+  "PT-BR": {
+    "OPT_RESOLUTION": "RESOLUCAO : ",
+    "OPT_FULLSCREEN": "TELA CHEIA : ",
+    "OPT_LANGUAGE": "IDIOMA : ",
+    "OPT_BACK": "VOLTAR",
+    "YES": "SIM",
+    "NO": "NAO",
+    "MODAL_CONFIRM": "Manter estas configuracoes de exibicao?",
+    "MODAL_REVERTING": "Revertendo em {0}s..."
+  },
+  "TR": {
+    "OPT_RESOLUTION": "COZUNURLUK : ",
+    "OPT_FULLSCREEN": "TAM EKRAN : ",
+    "OPT_LANGUAGE": "DIL : ",
+    "OPT_BACK": "GERI",
+    "YES": "EVET",
+    "NO": "HAYIR",
+    "MODAL_CONFIRM": "Bu goruntu ayarlarini korumak istiyor musunuz?",
+    "MODAL_REVERTING": "{0} saniye icinde geri aliniyor..."
+  }
+}

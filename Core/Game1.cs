@@ -25,18 +25,23 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        _graphics.PreferredBackBufferWidth = 1280;
-        _graphics.PreferredBackBufferHeight = 720;
+        SettingsManager.Initialize();
+        LocalizationManager.Initialize();
+        LocalizationManager.CurrentLanguage = SettingsManager.Settings.Language;
+
+        _graphics.PreferredBackBufferWidth = SettingsManager.Settings.ResolutionWidth;
+        _graphics.PreferredBackBufferHeight = SettingsManager.Settings.ResolutionHeight;
+        _graphics.IsFullScreen = SettingsManager.Settings.IsFullScreen;
         _graphics.ApplyChanges();
         
-        Window.Title = "ENIAC WAR";
+        Window.Title = LocalizationManager.GetString("TITLE");
         Window.Position = new Point(
-            (GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - 1280) / 2,
-            (GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 720) / 2
+            (GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - SettingsManager.Settings.ResolutionWidth) / 2,
+            (GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - SettingsManager.Settings.ResolutionHeight) / 2
         );
 
         _audioEngine = new AudioEngine();
-        _screenManager = new ScreenManager(_audioEngine);
+        _screenManager = new ScreenManager(_audioEngine, _graphics);
         _screenManager.ExitCommand = () => Exit();
 
         base.Initialize();

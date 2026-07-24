@@ -6,8 +6,8 @@ namespace EniacWar;
 
 public class MenuScreen : IScreen
 {
-    private string _title = "ENIAC WAR";
-    private string[] _options = { "ENIAC", "OPTIONS", "CREDITS", "FERMER" };
+    private string _title = "";
+    private string[] _options = new string[4];
     private int _selectedIndex = 0;
     
     private Color _textColor = new Color(50, 255, 50); 
@@ -19,6 +19,11 @@ public class MenuScreen : IScreen
 
     public void Initialize()
     {
+        _title = LocalizationManager.GetString("TITLE");
+        _options[0] = LocalizationManager.GetString("MENU_ENIAC");
+        _options[1] = LocalizationManager.GetString("MENU_OPTIONS");
+        _options[2] = LocalizationManager.GetString("MENU_CREDITS");
+        _options[3] = LocalizationManager.GetString("MENU_EXIT");
     }
 
     public void Update(GameTime gameTime, ScreenManager screenManager)
@@ -44,7 +49,11 @@ public class MenuScreen : IScreen
             _keyDown = true;
             screenManager.Audio.PlayTypingSound();
             
-            if (_selectedIndex == 3)
+            if (_selectedIndex == 1)
+            {
+                screenManager.ChangeScreen(new OptionsScreen());
+            }
+            else if (_selectedIndex == 3)
             {
                 screenManager.ExitCommand?.Invoke();
             }

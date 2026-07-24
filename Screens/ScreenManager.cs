@@ -12,13 +12,15 @@ public class ScreenManager
     private float _fadeSpeed = 1f / 0.4f;
     
     private readonly AudioEngine _audioEngine;
+    public GraphicsDeviceManager Graphics { get; }
     
     public AudioEngine Audio { get { return _audioEngine; } }
     public System.Action ExitCommand { get; set; }
 
-    public ScreenManager(AudioEngine audioEngine)
+    public ScreenManager(AudioEngine audioEngine, GraphicsDeviceManager graphics)
     {
         _audioEngine = audioEngine;
+        Graphics = graphics;
     }
 
     public void ChangeScreen(IScreen nextScreen)
