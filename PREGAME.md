@@ -1,125 +1,55 @@
-# PREGAME.md — Écran de Préparation du Jeu (Lobby / Configuration)
+# PREGAME.md — Écrans de Préparation du Jeu (Lobbies / Setup)
 
-> Spécification fonctionnelle et technique de la page de pré-partie pour **ENIAC WAR**.
-
----
-
-## 1. Rôle et Objectif
-
-La page de pré-partie (**Lobby / PreGameScreen**) est l'étape intermédiaire obligatoire entre le Menu Principal et le lancement de la simulation de combat en temps réel. Elle permet d'établir les conditions initiales du monde, la configuration des participants (Humains et IA), le paramétrage du réseau LAN et les règles de victoire.
-
-Conformément à la direction artistique du projet, l'interface doit être intégralement rendue en **vectoriel pur (0 asset externe)** dans l'esthétique d'un **terminal de commandement militaire rétro (CRT / Minitel)**.
+> Index des spécifications fonctionnelles et techniques des 3 modes de préparation pour **ENIAC WAR**.
 
 ---
 
-## 2. Modes d'Accès et Gestion Réseau LAN
+## 1. Rôle et Architecture des Écrans de Préparation
 
-La page de préparation s'adapte dynamiquement selon le mode sélectionné :
+Pour offrir une expérience claire et sans ambiguïté au joueur, les écrans de préparation (**Lobbies / Setup**) sont strictement séparés en **trois modes dédiés** depuis le Menu Principal :
 
-1. **Mode Solo (Vs IA)** :
-   - L'utilisateur local est obligatoirement l'hôte (Slot 1).
-   - Les slots 2, 3 et 4 sont configurables en IA ou désactivés.
-   - Lancement immédiat au clic sur **LANCER L'ASSAUT**.
+1. **[Mode Solo (ENIAC SOLO)](./PREGAME_SOLO.md)** : 
+   - Dédié au jeu contre l'Intelligence Artificielle (FSM).
+   - Pas de contraintes de réseau, pas de délai, contrôle total sur la configuration des bots et de la carte.
 
-2. **Mode Multijoueur LAN — Hôte (Créer un salon)** :
-   - Le serveur initialise la diffusion d'annonces UDP (**UDP Broadcast**) sur le réseau local.
-   - L'hôte possède les droits exclusifs sur la configuration de la carte, des ressources et des conditions de victoire.
-   - L'hôte peut verrouiller des slots, expulser des joueurs ou attribuer des slots IA.
+2. **[Mode Hôte LAN (ENIAC HÔTE)](./PREGAME_HOST.md)** :
+   - Dédié à la création et l'administration d'un salon multijoueur sur le réseau local.
+   - Diffusion UDP, gestion des autorisations/kicks, verrouillage des règles et validation du lancement de l'assaut.
 
-3. **Mode Multijoueur LAN — Client (Rejoindre un salon)** :
-   - Le client reçoit en temps réel la structure de données du salon (`LobbyStatePacket`).
-   - Le client peut modifier son pseudo, sa couleur (si disponible) et son état **PRÊT**.
-   - Les paramètres de carte et de victoire sont affichés en lecture seule.
+3. **[Mode Client LAN (ENIAC CLIENT)](./PREGAME_CLIENT.md)** :
+   - Dédié à la recherche (Server Browser UDP) et à la connexion aux salons LAN existants.
+   - Sélection du pseudo/couleur, bascule de l'état **PRÊT** et synchronisation en lecture seule des règles dictées par l'hôte.
 
 ---
 
-## 3. Configuration des Slots Joueurs (Max 4 Joueurs)
+## 2. Accès direct depuis MenuScreen
 
-Le jeu supporte jusqu'à **4 belligérants** simultanés. Chaque emplacement (slot) présente les options suivantes :
+Le Menu Principal (`MenuScreen`) propose directement l'accès à chacun des 3 modes de préparation :
 
-### Attributs d'un Slot
-- **Type de Joueur** :
-  - `HUMAIN` (Joueur connecté localement ou via LAN).
-  - `IA FACILE` / `IA MOYEN` / `IA DIFFICILE` (Comportement automatique géré par FSM).
-  - `OUVERT` (Attente d'un joueur LAN).
-  - `FERMÉ` (Slot désactivé pour la partie).
-- **Nom du Joueur / Faction** : Identifiant personnalisé (ex: `COMMANDANT_ALPHA`, `SECTEUR_01`).
-- **Couleur Tactique (Exclusive)** :
-  - `VERT` (0, 255, 65)
-  - `BLEU` (0, 150, 255)
-  - `ROUGE` (255, 50, 50)
-  - `CYAN` (0, 255, 230)
-  *Une couleur choisie par un joueur devient indisponible pour les autres.*
-- **Indicateur d'État** :
-  - `EN ATTENTE` (Texte jaune / clignotant).
-  - `PRÊT` (Texte vert fixe + encadré lumineux).
+- `ENIAC SOLO`  ---> Ouvre `PreGameSoloScreen`
+- `ENIAC HOTE`  ---> Ouvre `PreGameHostScreen`
+- `ENIAC CLIENT` ---> Ouvre `PreGameClientScreen`
+- `OPTIONS`
+- `CREDITS`
+- `FERMER`
 
 ---
 
-## 4. Paramètres de Carte et de Simulation
+## 3. Matrice Comparative des Modes
 
-Le salon permet de définir la génération du monde et les contraintes de jeu :
-
-| Paramètre | Options Disponibles | Valeur par Défaut | Description |
+| Fonctionnalité | ENIAC SOLO | ENIAC HÔTE | ENIAC CLIENT |
 |---|---|---|---|
-| **Génération (Seed)** | Chiffre ou Aléatoire | Aléatoire | Graine de génération Perlin/Simplex pour les courbes topographiques. |
-| **Brouillard de Guerre** | `ACTIVÉ` / `DÉSACTIVÉ` | `ACTIVÉ` | Masque les unités ennemies hors de portée de vision. |
-| **Ressources Initiales** | `50` / `100` / `200` pts | `100 pts` | Points d'unités accordés au démarrage à chaque Capitale. |
-| **Limite de Population** | `50` / `100` / `150` max | `150 max` | Nombre maximum d'unités actives par joueur. |
-| **Vitesse de Jeu** | `x1.0` / `x1.5` / `x2.0` | `x1.0` | Multiplicateur du temps de simulation. |
+| **Diffusion UDP (Network)** | Non | Oui (Serveur Broadcaster) | Écoute UDP / Server Browser |
+| **Gestion des Slots IA** | 1 à 3 IA | Attribution par l'Hôte | Lecture seule |
+| **Choix de la Seed & Règles** | Oui | Oui | Lecture seule |
+| **Bouton de Lancement** | Instantané (Start) | Soumis à validation PRÊT | Inexistant (Attente Hôte) |
+| **Console & Chat LAN** | Journal local | Console d'Administration | Chat Joueur |
 
 ---
 
-## 5. Conditions de Victoire
+## 4. Spécifications Détaillées
 
-L'hôte sélectionne la règle définissant la fin de la partie :
-
-1. **Domination Totale (Par Défaut)** :
-   - Élimination directe : La destruction de la Capitale d'un joueur le fait basculer en **Mode Spectateur**.
-   - La victoire est attribuée au dernier joueur ou équipe survivante.
-
-2. **Limite de Temps** :
-   - Chronomètre défini (`10 min`, `20 min`, `30 min`).
-   - À l'expiration du temps, le joueur possédant le **score le plus élevé** (cases contrôlées + unités abattues + bonus de Capitale) remporte la partie.
-
-3. **Objectif de Points** :
-   - Seuil de victoire défini (`1000 pts`, `2500 pts`, `5000 pts`).
-   - Le premier joueur atteignant le score cible remporte immédiatement la victoire.
-
----
-
-## 6. Interface Utilisateur Rétro & Console LAN (Layout)
-
-L'écran s'organise en 4 blocs vectoriels distincts :
-
-```text
-+-----------------------------------------------------------------------------------+
-|  ENIAC WAR — SALON DE COMMANDEMENT [LAN / SOLO]                    PING: 12ms     |
-+------------------------------------------------------+----------------------------+
-| EMPLACEMENTS JOUEURS                                 | PARAMÈTRES DE LA CARTE     |
-|                                                      |                            |
-| [1] HUMAIN  | CMD_ALPHA   | [VERT]  | [PRÊT]         | SEED    : 84920412         |
-| [2] IA      | BOTE_DEF    | [BLEU]  | [PRÊT]         | BROUILLARD: ACTIVÉ         |
-| [3] IA      | BOT_AGGRO   | [ROUGE] | [PRÊT]         | PTS DÉPART: 100 PTS        |
-| [4] FERMÉ   | ---         | ---     | ---            | POP MAX   : 150 UNITES     |
-|                                                      | VICTOIRE  : DOMINATION     |
-+------------------------------------------------------+----------------------------+
-| CONSOLE LAN & JOURNAL DU SALON                       | APERÇU TOPOGRAPHIQUE (SEED)|
-|                                                      |                            |
-| [SYSTEM] SALON CRÉÉ SUR 192.168.1.50:7777            |       /\   /\  .           |
-| [JOIN] JOUEUR_2 A REJOINDA LA PARTIE.                |      /  \ /  \             |
-| > TAPISSEZ VOTRE MESSAGE ICI...                      |     (  TOPOGRAPHIE  )      |
-+------------------------------------------------------+----------------------------+
-| [RETOUR MENU]                                            [LANCER L'ASSAUT (START)]|
-+-----------------------------------------------------------------------------------+
-```
-
----
-
-## 7. Directives Architecturales C#
-
-Lors de l'implémentation de la classe `PreGameScreen.cs` :
-- **Implémenter `IScreen`** pour la gestion uniforme du cycle de vie (`Initialize`, `Update`, `Draw`).
-- **Aucun Asset Externe** : Rendu des conteneurs, sélecteurs et boutons via `Renderer` (primitives et `SpriteFont`).
-- **Respect de la Règle des ~250 Lignes** : Si la logique de réseau LAN ou de gestion de la console devient dense, la découper en composants modulaires (`LobbyNetworkHandler.cs`, `LobbyUIComponent.cs`).
-- **Interdiction Absolue des Commentaires** : Code auto-explicatif par son typage et nommage.
+Veuillez consulter les documents dédiés pour l'implémentation de chaque écran :
+- **[`PREGAME_SOLO.md`](./PREGAME_SOLO.md)**
+- **[`PREGAME_HOST.md`](./PREGAME_HOST.md)**
+- **[`PREGAME_CLIENT.md`](./PREGAME_CLIENT.md)**

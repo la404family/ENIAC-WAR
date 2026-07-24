@@ -7,7 +7,7 @@ namespace EniacWar;
 public class MenuScreen : IScreen
 {
     private string _title = "";
-    private string[] _options = new string[4];
+    private string[] _options = new string[6];
     private int _selectedIndex = 0;
     
     private Color _textColor = new Color(50, 255, 50); 
@@ -20,10 +20,12 @@ public class MenuScreen : IScreen
     public void Initialize()
     {
         _title = LocalizationManager.GetString("TITLE");
-        _options[0] = LocalizationManager.GetString("MENU_ENIAC");
-        _options[1] = LocalizationManager.GetString("MENU_OPTIONS");
-        _options[2] = LocalizationManager.GetString("MENU_CREDITS");
-        _options[3] = LocalizationManager.GetString("MENU_EXIT");
+        _options[0] = LocalizationManager.GetString("MENU_ENIAC_SOLO");
+        _options[1] = LocalizationManager.GetString("MENU_ENIAC_HOTE");
+        _options[2] = LocalizationManager.GetString("MENU_ENIAC_CLIENT");
+        _options[3] = LocalizationManager.GetString("MENU_OPTIONS");
+        _options[4] = LocalizationManager.GetString("MENU_CREDITS");
+        _options[5] = LocalizationManager.GetString("MENU_EXIT");
     }
 
     public void Update(GameTime gameTime, ScreenManager screenManager)
@@ -49,11 +51,11 @@ public class MenuScreen : IScreen
             _keyDown = true;
             screenManager.Audio.PlayTypingSound();
             
-            if (_selectedIndex == 1)
+            if (_selectedIndex == 3)
             {
                 screenManager.ChangeScreen(new OptionsScreen());
             }
-            else if (_selectedIndex == 3)
+            else if (_selectedIndex == 5)
             {
                 screenManager.ExitCommand?.Invoke();
             }
@@ -78,20 +80,20 @@ public class MenuScreen : IScreen
         Vector2 titleSize = font.MeasureString(_title);
         Vector2 titlePos = new Vector2(
             (graphics.PreferredBackBufferWidth - titleSize.X) / 2,
-            150
+            100
         );
 
         renderer.DrawString(font, _title, titlePos, _textColor);
 
-        float scaleOption = 0.5f;
-        float startY = 350;
+        float scaleOption = 0.45f;
+        float startY = 250;
 
         for (int i = 0; i < _options.Length; i++)
         {
             Vector2 optionSize = font.MeasureString(_options[i]) * scaleOption;
             Vector2 optionPos = new Vector2(
                 (graphics.PreferredBackBufferWidth - optionSize.X) / 2,
-                startY + i * 60
+                startY + i * 50
             );
 
             renderer.DrawString(font, _options[i], optionPos, _textColor, scaleOption);
